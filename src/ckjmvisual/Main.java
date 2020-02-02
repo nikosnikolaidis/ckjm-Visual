@@ -15,13 +15,13 @@ public class Main {
         HomeFrame homeFrame=new HomeFrame();
         homeFrame.setVisible(true);
         //Read dummy file from location - replace with Project.directory
-        File file = new File("C:\\Users\\Sakis\\Desktop\\doc.txt");
-        BufferedReader br = new BufferedReader(new FileReader(file));
+//         File file = new File("C:\\Users\\Sakis\\Desktop\\doc.txt");
+//         BufferedReader br = new BufferedReader(new FileReader(file));
         
-        String line;
-        while((line = br.readLine()) != null){
-            System.out.println(line);
-        }
+//         String line;
+//         while((line = br.readLine()) != null){
+//             System.out.println(line);
+//         }
     }
     
 }
