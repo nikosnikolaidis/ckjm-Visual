@@ -19,12 +19,11 @@ public class Parser {
 
     /**
      * Parses the results of ckjm and creates the JavaFiles
+     * @return an array with the javaFiles
      */
     public ArrayList<JavaFile> parseText() {
-        ArrayList<JavaFile> javaFiles = new ArrayList<JavaFile>();
-        BufferedReader br;
-        try {
-            br = new BufferedReader(new FileReader(file));
+        ArrayList<JavaFile> javaFiles = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] line1 = line.split(" ");

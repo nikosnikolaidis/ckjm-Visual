@@ -13,6 +13,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.nio.channels.FileChannel;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,32 +30,37 @@ public class Project implements Serializable {
         this.directory = directory;
         this.javafiles = new ArrayList<>();
 
-        tempFolder = new File(this.getDirectory() + "\\temp\\");
+        tempFolder = new File(this.getDirectory() + "\\temp_ckjm\\");
+        if(tempFolder.exists())
+            deleteFolder(tempFolder);
         tempFolder.mkdirs();
         getClassFiles(this.directory);
     }
 
-    // Run ckjm
+    /**
+     * Run ckjm
+     */
     public void analyze() {
         try {
-            System.out.println(System.getProperty("user.dir"));
-            Process proc = Runtime.getRuntime().exec("cmd /c start cd \"" + System.getProperty("user.dir") + "\" && "
-                    + "java -jar ckjm-1.9.jar " + this.getDirectory() + "\\temp\\*.class"
-                    + ">output.txt");
+            Process proc = Runtime.getRuntime().exec("cmd /c \"cd " + System.getProperty("user.dir") + " && "
+                    + "java -jar ckjm-1.9.jar " + this.getDirectory() + "\\temp_ckjm\\*.class"
+                    + ">output.txt\"");
 
             //ToDo
-            // output write doent work
-            
-            Thread.sleep(100);
+            // instead of sleep
+            Thread.sleep(1000);
             Parser parser = new Parser(new File(System.getProperty("user.dir") + "\\output.txt"));
             this.javafiles = parser.parseText();
-        } catch (IOException ex) {
-            Logger.getLogger(Project.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
+            deleteFolder(tempFolder);
+        } catch (IOException | InterruptedException ex) {
             Logger.getLogger(Project.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
+    /**
+     * Gets .class files from a directory
+     * @param directoryName the path
+     */
     public void getClassFiles(String directoryName) throws IOException {
         File directory = new File(directoryName);
         // Get all files from a directory.
@@ -73,27 +79,41 @@ public class Project implements Serializable {
         }
     }
 
-    // Copies file
+    
+    /**
+     * Copy file from a directory to another one
+     * @param sourceLocation the location of the file
+     * @param targetLocation the destination
+     */
     public void copyFile(File sourceLocation, File targetLocation) throws IOException {
-        BufferedReader br;
-        br = new BufferedReader(new FileReader(sourceLocation));
-        BufferedWriter writer = new BufferedWriter(new FileWriter(targetLocation.getAbsoluteFile(), true));
-        String line;
-        while ((line = br.readLine()) != null) {
-            writer.append(line);
-        }
-        writer.close();
+        Files.copy(sourceLocation.toPath(), targetLocation.toPath());
     }
-    // Getters //
+    
+    /**
+     * Deletes directory
+     * @param folder the folder to delete
+     */
+    public static void deleteFolder(File folder) {
+        File[] files = folder.listFiles();
+        if (files != null) { //some JVMs return null for empty dirs
+            for (File f : files) {
+                if (f.isDirectory()) {
+                    deleteFolder(f);
+                } else {
+                    f.delete();
+                }
+            }
+        }
+        folder.delete();
+    }
 
+    // Getters //
     public String getName() {
         return name;
     }
-
     public String getDirectory() {
         return directory;
     }
-
     public ArrayList<JavaFile> getJavafiles() {
         return javafiles;
     }
