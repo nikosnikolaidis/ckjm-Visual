@@ -24,7 +24,7 @@ public class Parser {
      */
     public ArrayList<JavaFile> parseText() {
         //Read dummy file from location - replace with Project.directory
-        File projectPath = new File(project.getDirectory()+"\\"+this.file);
+        File projectPath = new File(project.getDirectory() + "\\" + this.file);
         ArrayList<JavaFile> javaFiles = new ArrayList<JavaFile>();
         
         BufferedReader br;

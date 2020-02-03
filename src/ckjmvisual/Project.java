@@ -11,8 +11,8 @@ public class Project {
     private ArrayList<JavaFile> javafiles;
     
     public Project(String name, String directory){
-        this.name=name;
-        this.directory=directory;
+        this.name = name;
+        this.directory = directory;
         this.javafiles = new ArrayList<>();
     }
     
