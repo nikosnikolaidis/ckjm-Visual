@@ -27,7 +27,7 @@ public class Project  implements Serializable{
         try {
             System.out.println(System.getProperty("user.dir"));
             Process proc=Runtime.getRuntime().exec("cmd /c start cd \""+System.getProperty("user.dir")+"\" && "
-                    +"java -jar ckjm-1.9.jar "+this.getDirectory());
+                    +"java -jar ckjm-1.9.jar " + this.getDirectory());
             BufferedReader reader=new BufferedReader(new InputStreamReader(proc.getInputStream()));
             
             String line;

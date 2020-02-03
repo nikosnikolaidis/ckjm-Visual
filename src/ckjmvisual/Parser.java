@@ -12,24 +12,20 @@ import java.util.logging.Logger;
 public class Parser {
 
     public File file;
-    public Project project;
     
-    public Parser(File file, Project project) {
+    public Parser(File file) {
         this.file = file;
-        this.project = project;
     }
 
     /**
      * Parses the results of ckjm and creates the JavaFiles
      */
     public ArrayList<JavaFile> parseText() {
-        //Read dummy file from location - replace with Project.directory
-        File projectPath = new File(project.getDirectory() + "\\" + this.file);
         ArrayList<JavaFile> javaFiles = new ArrayList<JavaFile>();
         
         BufferedReader br;
         try {
-            br = new BufferedReader(new FileReader(projectPath));
+            br = new BufferedReader(new FileReader(file));
             String line;
             while ((line = br.readLine()) != null) {
                 String[] line1 = line.split(" ");
