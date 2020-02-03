@@ -183,6 +183,10 @@ public class HomeFrame extends javax.swing.JFrame {
             Project p= new Project(jTextFieldProjectName.getText(), jTextFieldProjectDirectory.getText());
             
             p.analyze();
+            
+            for(JavaFile jfile: p.getJavafiles()){
+                System.out.println(jfile.getFileName());
+            }
         } catch (IOException ex) {
             Logger.getLogger(HomeFrame.class.getName()).log(Level.SEVERE, null, ex);
         }

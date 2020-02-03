@@ -15,7 +15,6 @@ public class Parser {
     
     public Parser(File file) {
         this.file = file;
-        System.out.println("ckjmvisual.Parser.<init>()");
     }
 
     /**

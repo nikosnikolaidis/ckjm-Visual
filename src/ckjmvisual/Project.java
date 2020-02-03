@@ -1,11 +1,16 @@
 package ckjmvisual;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
@@ -24,9 +29,9 @@ public class Project implements Serializable {
         this.directory = directory;
         this.javafiles = new ArrayList<>();
 
-        tempFolder= new File(System.getProperty("user.dir")+"\\temp\\");
-        //tempFolder.mkdirs();
-        getClassFiles(System.getProperty("user.dir"));
+        tempFolder = new File(this.getDirectory() + "\\temp\\");
+        tempFolder.mkdirs();
+        getClassFiles(this.directory);
     }
 
     // Run ckjm
@@ -34,13 +39,18 @@ public class Project implements Serializable {
         try {
             System.out.println(System.getProperty("user.dir"));
             Process proc = Runtime.getRuntime().exec("cmd /c start cd \"" + System.getProperty("user.dir") + "\" && "
-                    + "java -jar ckjm-1.9.jar " + this.getDirectory() + "\\temp\\"
+                    + "java -jar ckjm-1.9.jar " + this.getDirectory() + "\\temp\\*.class"
                     + ">output.txt");
 
-            ////TODO wait till file created
+            //ToDo
+            // output write doent work
+            
+            Thread.sleep(100);
             Parser parser = new Parser(new File(System.getProperty("user.dir") + "\\output.txt"));
             this.javafiles = parser.parseText();
         } catch (IOException ex) {
+            Logger.getLogger(Project.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
             Logger.getLogger(Project.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -54,7 +64,7 @@ public class Project implements Serializable {
                 if (file.isFile() && file.getName().contains(".") && file.getName().charAt(0) != '.') {
                     String[] str = file.getName().split("\\.");
                     if (str[str.length - 1].equalsIgnoreCase("class")) {
-                        copyFile(file,new File(tempFolder.getAbsoluteFile()+file.getName()) );
+                        copyFile(file, new File(tempFolder.getAbsoluteFile() + "\\" + file.getName()));
                     }
                 } else if (file.isDirectory()) {
                     getClassFiles(file.getAbsolutePath());
@@ -63,30 +73,19 @@ public class Project implements Serializable {
         }
     }
 
-    private static void copyFile(File sourceFile, File destFile) throws IOException {
-        if (!sourceFile.exists()) {
-            return;
+    // Copies file
+    public void copyFile(File sourceLocation, File targetLocation) throws IOException {
+        BufferedReader br;
+        br = new BufferedReader(new FileReader(sourceLocation));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(targetLocation.getAbsoluteFile(), true));
+        String line;
+        while ((line = br.readLine()) != null) {
+            writer.append(line);
         }
-        if (!destFile.exists()) {
-            destFile.createNewFile();
-        }
-        FileChannel source = null;
-        FileChannel destination = null;
-        source = new FileInputStream(sourceFile).getChannel();
-        destination = new FileOutputStream(destFile).getChannel();
-        if (destination != null && source != null) {
-            destination.transferFrom(source, 0, source.size());
-        }
-        if (source != null) {
-            source.close();
-        }
-        if (destination != null) {
-            destination.close();
-        }
-
+        writer.close();
     }
-
     // Getters //
+
     public String getName() {
         return name;
     }
