@@ -16,6 +16,7 @@ public class Main {
         homeFrame.setVisible(true);
         Project p=new Project("as", "C:\\Users\\Nikos\\Desktop\\ptixiaki2");
         p.analyze();
+        System.out.println("Tsifsa");
     }
     
 
