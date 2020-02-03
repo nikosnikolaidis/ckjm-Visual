@@ -15,6 +15,7 @@ public class Parser {
     
     public Parser(File file) {
         this.file = file;
+        System.out.println("ckjmvisual.Parser.<init>()");
     }
 
     /**
@@ -22,20 +23,17 @@ public class Parser {
      */
     public ArrayList<JavaFile> parseText() {
         ArrayList<JavaFile> javaFiles = new ArrayList<JavaFile>();
-        
         BufferedReader br;
         try {
             br = new BufferedReader(new FileReader(file));
             String line;
             while ((line = br.readLine()) != null) {
                 String[] line1 = line.split(" ");
-                
                 JavaFile javaFile = new JavaFile(line1[0],Integer.parseInt(line1[1]),Integer.parseInt(line1[2])
                         ,Integer.parseInt(line1[3]),Integer.parseInt(line1[4]),Integer.parseInt(line1[5])
                         ,Integer.parseInt(line1[6]),Integer.parseInt(line1[7]),Integer.parseInt(line1[8]));
                 
                 javaFiles.add(javaFile);
-                
             }
             
             return javaFiles;
