@@ -12,9 +12,11 @@ import java.util.logging.Logger;
 public class Parser {
 
     public File file;
-
-    public Parser(File file) {
+    public Project project;
+    
+    public Parser(File file, Project project) {
         this.file = file;
+        this.project = project;
     }
 
     /**
@@ -22,12 +24,12 @@ public class Parser {
      */
     public ArrayList<JavaFile> parseText() {
         //Read dummy file from location - replace with Project.directory
-        File file = new File("C:\\Users\\Sakis\\Desktop\\doc.txt");
+        File projectPath = new File(project.getDirectory()+"\\"+this.file);
         ArrayList<JavaFile> javaFiles = new ArrayList<JavaFile>();
         
         BufferedReader br;
         try {
-            br = new BufferedReader(new FileReader(file));
+            br = new BufferedReader(new FileReader(projectPath));
             String line;
             while ((line = br.readLine()) != null) {
                 String[] line1 = line.split(" ");
