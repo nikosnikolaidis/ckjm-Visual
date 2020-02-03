@@ -25,9 +25,7 @@ public class JavaFile {
         this.Ca = Ca;
         this.NPM = NPM;
     }
-    
-    
-    
+     
     // Getters //
     public String getFileName() {
         return fileName;

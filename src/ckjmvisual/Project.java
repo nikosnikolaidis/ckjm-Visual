@@ -17,8 +17,8 @@ public class Project  implements Serializable{
     private ArrayList<JavaFile> javafiles;
     
     public Project(String name, String directory){
-        this.name=name;
-        this.directory=directory;
+        this.name = name;
+        this.directory = directory;
         this.javafiles = new ArrayList<>();
     }
     
@@ -27,9 +27,13 @@ public class Project  implements Serializable{
         try {
             System.out.println(System.getProperty("user.dir"));
             Process proc=Runtime.getRuntime().exec("cmd /c start cd \""+System.getProperty("user.dir")+"\" && "
+<<<<<<< HEAD
                     +"java -jar ckjm-1.9.jar "+
                     "C:\\Users\\Nikos\\Desktop\\ptixiaki2\\bin\\ptixiaki\\*.class>"//this.getDirectory()
                     +">output.txt");
+=======
+                    +"java -jar ckjm-1.9.jar " + this.getDirectory());
+>>>>>>> ac2b3bc3d72d9f4db8fcd0d8ac47201e45d05339
             BufferedReader reader=new BufferedReader(new InputStreamReader(proc.getInputStream()));
             
             String line;
