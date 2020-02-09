@@ -18,7 +18,7 @@ public class Analysis {
         return this.date;
     }
     
-    public ArrayList<JavaFile> getJavaFiles(){
+    public ArrayList<JavaFile> getAnalysisJavaFiles(){
         return this.javaFiles;
     }
 }
