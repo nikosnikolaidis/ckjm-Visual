@@ -117,6 +117,14 @@ public class HomeFrame extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        jListProjects.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jListProjectsMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jListProjectsMousePressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(jListProjects);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -217,6 +225,20 @@ public class HomeFrame extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jButtonSaveActionPerformed
+
+    private void jListProjectsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListProjectsMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jListProjectsMouseClicked
+
+    private void jListProjectsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListProjectsMousePressed
+        String selectedProject= jListProjects.getSelectedValue();
+        for(Project p: Main.projects){
+            if(p.getName().equals(selectedProject)){
+                ProjectFrame projectF= new ProjectFrame(p);
+                projectF.setVisible(true);
+            }
+        }
+    }//GEN-LAST:event_jListProjectsMousePressed
 
     /**
          * @param args the command line arguments

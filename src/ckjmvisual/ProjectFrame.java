@@ -1,14 +1,45 @@
 
 package ckjmvisual;
 
+import java.util.Collections;
+import javafx.scene.layout.Pane;
+import javax.swing.DefaultListModel;
+
 
 public class ProjectFrame extends javax.swing.JFrame {
 
+    Project project;
+    
     /**
      * Creates new form ProjectFrame
      */
     public ProjectFrame() {
         initComponents();
+    }
+     public ProjectFrame(Project p){
+        this.project=p;
+         
+        initComponents();
+        populateIssueList();
+        this.jLabelProjectName.setText(project.getName());
+        //getAverageMetrics();
+     }
+
+    //Populate List with JavaFiles
+    private void populateIssueList() {
+        if(!Main.projects.isEmpty()){
+            DefaultListModel<JavaFile> defaultListModel= new DefaultListModel<>();
+            //Collections.sort(project.getprojectReport().getIssuesList());
+            for(JavaFile jf: project.getJavafiles()){
+                defaultListModel.addElement(jf);
+            }
+            jListJavaFile.setModel(defaultListModel);
+            jListJavaFile.setCellRenderer(new PanelJavaFileList());
+        }
+    }
+    // Calculate average metrics and populate jLabels
+    private void getAverageMetrics() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
@@ -22,9 +53,31 @@ public class ProjectFrame extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jLabelProjectName = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabelWMC = new javax.swing.JLabel();
+        jLabelDIT = new javax.swing.JLabel();
+        jLabelNOC = new javax.swing.JLabel();
+        jLabelCBO = new javax.swing.JLabel();
+        jLabelRFC = new javax.swing.JLabel();
+        jLabelLCOM = new javax.swing.JLabel();
+        jLabelCa = new javax.swing.JLabel();
+        jLabelNPM = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jListJavaFile = new javax.swing.JList<>();
+        jPanel6 = new javax.swing.JPanel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -39,49 +92,129 @@ public class ProjectFrame extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jPanel2.setLayout(new java.awt.GridLayout(3, 1, 2, 0));
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
         jLabel1.setText("CJKM-Visual");
+        jPanel2.add(jLabel1);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"WMC", null},
-                {"DIT", null},
-                {"NOC", null},
-                {"CBO", null},
-                {"RFC", null},
-                {"LCOM", null},
-                {"Ca", null},
-                {"NPM", null}
-            },
-            new String [] {
-                "Metrics", "Java Class"
-            }
-        ));
-        jScrollPane2.setViewportView(jTable2);
+        jLabelProjectName.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabelProjectName.setText("jLabel2");
+        jPanel2.add(jLabelProjectName);
+
+        jPanel5.setLayout(new java.awt.GridLayout(2, 0));
+
+        jLabel2.setText("WMC");
+        jPanel5.add(jLabel2);
+
+        jLabel3.setText("DIT");
+        jPanel5.add(jLabel3);
+
+        jLabel4.setText("NOC");
+        jPanel5.add(jLabel4);
+
+        jLabel5.setText("CBO");
+        jPanel5.add(jLabel5);
+
+        jLabel6.setText("RFC");
+        jPanel5.add(jLabel6);
+
+        jLabel7.setText("LCOM");
+        jPanel5.add(jLabel7);
+
+        jLabel8.setText("Ca");
+        jPanel5.add(jLabel8);
+
+        jLabel9.setText("NPM");
+        jPanel5.add(jLabel9);
+
+        jLabelWMC.setText("jLabel");
+        jPanel5.add(jLabelWMC);
+
+        jLabelDIT.setText("jLabel");
+        jPanel5.add(jLabelDIT);
+
+        jLabelNOC.setText("jLabel");
+        jPanel5.add(jLabelNOC);
+
+        jLabelCBO.setText("jLabel");
+        jPanel5.add(jLabelCBO);
+
+        jLabelRFC.setText("jLabel");
+        jPanel5.add(jLabelRFC);
+
+        jLabelLCOM.setText("jLabel");
+        jPanel5.add(jLabelLCOM);
+
+        jLabelCa.setText("jLabel");
+        jPanel5.add(jLabelCa);
+
+        jLabelNPM.setText("jLabel");
+        jPanel5.add(jLabelNPM);
+
+        jPanel2.add(jPanel5);
+
+        jScrollPane3.setViewportView(jListJavaFile);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 198, Short.MAX_VALUE)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(156, 156, 156)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(13, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(50, 50, 50)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -124,9 +257,31 @@ public class ProjectFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabelCBO;
+    private javax.swing.JLabel jLabelCa;
+    private javax.swing.JLabel jLabelDIT;
+    private javax.swing.JLabel jLabelLCOM;
+    private javax.swing.JLabel jLabelNOC;
+    private javax.swing.JLabel jLabelNPM;
+    private javax.swing.JLabel jLabelProjectName;
+    private javax.swing.JLabel jLabelRFC;
+    private javax.swing.JLabel jLabelWMC;
+    private javax.swing.JList<JavaFile> jListJavaFile;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
 }

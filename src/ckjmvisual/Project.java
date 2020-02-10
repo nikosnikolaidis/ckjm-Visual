@@ -22,43 +22,49 @@ public class Project implements Serializable {
 
     private String name;
     private String directory;
-    private ArrayList<JavaFile> javafiles;
+    private ArrayList<JavaFile> javaFiles;
     private File tempFolder;
 
     public Project(String name, String directory) throws IOException {
         this.name = name;
         this.directory = directory;
-        this.javafiles = new ArrayList<>();
+        this.javaFiles = new ArrayList<>();
 
         tempFolder = new File(this.getDirectory() + "\\temp_ckjm\\");
-        if(tempFolder.exists())
+        if (tempFolder.exists()) {
             deleteFolder(tempFolder);
+        }
         tempFolder.mkdirs();
         getClassFiles(this.directory);
     }
 
     /**
-     * Run ckjm
+     * Run ckjm and get results from cmd
      */
     public void analyze() {
         try {
             Process proc = Runtime.getRuntime().exec("cmd /c \"cd " + System.getProperty("user.dir") + " && "
-                    + "java -jar ckjm-1.9.jar " + this.getDirectory() + "\\temp_ckjm\\*.class"
-                    + ">output.txt\"");
+                    + "java -jar ckjm-1.9.jar " + this.getDirectory() + "\\temp_ckjm\\*.class\"");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(proc.getInputStream()));
 
-            //ToDo
-            // instead of sleep
-            Thread.sleep(1000);
-            Parser parser = new Parser(new File(System.getProperty("user.dir") + "\\output.txt"));
-            this.javafiles = parser.parseText();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] line1 = line.split(" ");
+                JavaFile javaFile = new JavaFile(line1[0],Integer.parseInt(line1[1]),Integer.parseInt(line1[2])
+                        ,Integer.parseInt(line1[3]),Integer.parseInt(line1[4]),Integer.parseInt(line1[5])
+                        ,Integer.parseInt(line1[6]),Integer.parseInt(line1[7]),Integer.parseInt(line1[8]));
+                
+                javaFiles.add(javaFile);
+            }
             deleteFolder(tempFolder);
-        } catch (IOException | InterruptedException ex) {
+        } catch (IOException ex) {
             Logger.getLogger(Project.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     /**
      * Gets .class files from a directory
+     *
      * @param directoryName the path
      */
     public void getClassFiles(String directoryName) throws IOException {
@@ -79,18 +85,19 @@ public class Project implements Serializable {
         }
     }
 
-    
     /**
      * Copy file from a directory to another one
+     *
      * @param sourceLocation the location of the file
      * @param targetLocation the destination
      */
     public void copyFile(File sourceLocation, File targetLocation) throws IOException {
         Files.copy(sourceLocation.toPath(), targetLocation.toPath());
     }
-    
+
     /**
      * Deletes directory
+     *
      * @param folder the folder to delete
      */
     public static void deleteFolder(File folder) {
@@ -111,10 +118,12 @@ public class Project implements Serializable {
     public String getName() {
         return name;
     }
+
     public String getDirectory() {
         return directory;
     }
+
     public ArrayList<JavaFile> getJavafiles() {
-        return javafiles;
+        return javaFiles;
     }
 }
