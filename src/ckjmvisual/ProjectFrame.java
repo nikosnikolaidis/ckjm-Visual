@@ -30,7 +30,7 @@ public class ProjectFrame extends javax.swing.JFrame {
         if(!Main.projects.isEmpty()){
             DefaultListModel<JavaFile> defaultListModel= new DefaultListModel<>();
             //Collections.sort(project.getprojectReport().getIssuesList());
-            for(JavaFile jf: project.getJavafiles()){
+            for(JavaFile jf: project.getAllAnalysis().get(0).getJavaFiles()){
                 defaultListModel.addElement(jf);
             }
             jListJavaFile.setModel(defaultListModel);

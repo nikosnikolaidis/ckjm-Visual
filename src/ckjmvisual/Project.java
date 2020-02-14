@@ -1,65 +1,31 @@
 package ckjmvisual;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.Serializable;
-import java.nio.channels.FileChannel;
 import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Project implements Serializable {
 
     private String name;
     private String directory;
-    private ArrayList<JavaFile> javaFiles;
-    private File tempFolder;
+    private ArrayList<Analysis> allAnalysis;
 
     public Project(String name, String directory) throws IOException {
         this.name = name;
         this.directory = directory;
-        this.javaFiles = new ArrayList<>();
-
-        tempFolder = new File(this.getDirectory() + "\\temp_ckjm\\");
-        if (tempFolder.exists()) {
-            deleteFolder(tempFolder);
-        }
-        tempFolder.mkdirs();
-        getClassFiles(this.directory);
+        this.allAnalysis = new ArrayList<>();
     }
 
     /**
      * Run ckjm and get results from cmd
      */
-    public void analyze() {
-        try {
-            Process proc = Runtime.getRuntime().exec("cmd /c \"cd " + System.getProperty("user.dir") + " && "
-                    + "java -jar ckjm-1.9.jar " + this.getDirectory() + "\\temp_ckjm\\*.class\"");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(proc.getInputStream()));
-
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] line1 = line.split(" ");
-                JavaFile javaFile = new JavaFile(line1[0],Integer.parseInt(line1[1]),Integer.parseInt(line1[2])
-                        ,Integer.parseInt(line1[3]),Integer.parseInt(line1[4]),Integer.parseInt(line1[5])
-                        ,Integer.parseInt(line1[6]),Integer.parseInt(line1[7]),Integer.parseInt(line1[8]));
-                
-                javaFiles.add(javaFile);
-            }
-            deleteFolder(tempFolder);
-        } catch (IOException ex) {
-            Logger.getLogger(Project.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public void analyze() throws IOException {
+        
+        Analysis anal= new Analysis(this);
+        anal.startAnalyzing();
+        allAnalysis.add(anal);
     }
 
     /**
@@ -67,7 +33,7 @@ public class Project implements Serializable {
      *
      * @param directoryName the path
      */
-    public void getClassFiles(String directoryName) throws IOException {
+    public void getClassFiles(String directoryName, Analysis analysis) throws IOException {
         File directory = new File(directoryName);
         // Get all files from a directory.
         File[] fList = directory.listFiles();
@@ -76,10 +42,10 @@ public class Project implements Serializable {
                 if (file.isFile() && file.getName().contains(".") && file.getName().charAt(0) != '.') {
                     String[] str = file.getName().split("\\.");
                     if (str[str.length - 1].equalsIgnoreCase("class")) {
-                        copyFile(file, new File(tempFolder.getAbsoluteFile() + "\\" + file.getName()));
+                        copyFile(file, new File(analysis.getTempFolder().getAbsoluteFile() + "\\" + file.getName()));
                     }
                 } else if (file.isDirectory()) {
-                    getClassFiles(file.getAbsolutePath());
+                    getClassFiles(file.getAbsolutePath(), analysis);
                 }
             }
         }
@@ -123,7 +89,7 @@ public class Project implements Serializable {
         return directory;
     }
 
-    public ArrayList<JavaFile> getJavafiles() {
-        return javaFiles;
+    public ArrayList<Analysis> getAllAnalysis() {
+        return allAnalysis;
     }
 }
