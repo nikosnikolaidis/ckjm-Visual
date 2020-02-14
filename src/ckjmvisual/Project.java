@@ -1,10 +1,14 @@
 package ckjmvisual;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Project implements Serializable {
 
@@ -22,8 +26,8 @@ public class Project implements Serializable {
      * Run ckjm and get results from cmd
      */
     public void analyze() throws IOException {
-        
-        Analysis anal= new Analysis(this);
+
+        Analysis anal = new Analysis(this);
         anal.startAnalyzing();
         allAnalysis.add(anal);
     }
@@ -78,6 +82,19 @@ public class Project implements Serializable {
             }
         }
         folder.delete();
+    }
+
+    // Saves to File the List of projects
+    public void saveToFile() {
+        try {
+            FileOutputStream f = new FileOutputStream(new File("projects.ser"));
+            ObjectOutputStream o = new ObjectOutputStream(f);
+            o.writeObject(Main.projects);
+            o.close();
+            f.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Project.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     // Getters //

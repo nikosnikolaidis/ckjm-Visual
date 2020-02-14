@@ -1,8 +1,10 @@
 
 package ckjmvisual;
 
+import java.io.Serializable;
 
-public class JavaFile {
+
+public class JavaFile implements Serializable, Comparable<JavaFile>{
     
     private String fileName;
     private int WMC;
@@ -25,7 +27,37 @@ public class JavaFile {
         this.Ca = Ca;
         this.NPM = NPM;
     }
-     
+    
+    /**
+     * Compares this and the other JavaFiles based on the metrics ratio
+     * @param o the other javaFile
+     */
+    @Override
+    public int compareTo(JavaFile o) {
+        double thisTotal= getRatio(WMC, Main.WMC)+ getRatio(DIT, Main.DIT)+ getRatio(NOC, Main.NOC)+
+                getRatio(CBO, Main.CBO)+ getRatio(RFC, Main.RFC)+ getRatio(LCOM, Main.LCOM)+
+                getRatio(Ca, Main.Ca)+ getRatio(NPM, Main.NPM);
+        double otherTotal= getRatio(o.getWMC(), Main.WMC)+ getRatio(o.getDIT(), Main.DIT)+ getRatio(o.getNOC(), Main.NOC)+
+                getRatio(o.getCBO(), Main.CBO)+ getRatio(o.getRFC(), Main.RFC)+ getRatio(o.getLCOM(), Main.LCOM)+
+                getRatio(o.getCa(), Main.Ca)+ getRatio(o.getNPM(), Main.NPM);
+        
+        if(thisTotal > otherTotal)
+            return -1;
+        else if (thisTotal < otherTotal)
+            return 1;
+        else
+            return 0;
+    }
+    
+    /**
+     * Returns a ratio for a metric
+     * @param metric the calculated metric
+     * @param threshold the threshold for the metric
+     */
+    private double getRatio(int metric, int threshold){
+        return metric/threshold;
+    }
+    
     // Getters //
     public String getFileName() {
         return fileName;
@@ -54,4 +86,5 @@ public class JavaFile {
     public int getNPM() {
         return NPM;
     }
+
 }
