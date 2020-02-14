@@ -15,6 +15,7 @@ public class Main {
         
         HomeFrame homeFrame=new HomeFrame();
         homeFrame.setVisible(true);
+     
         
     }
     
