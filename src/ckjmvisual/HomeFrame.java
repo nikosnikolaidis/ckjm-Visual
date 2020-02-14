@@ -215,8 +215,8 @@ public class HomeFrame extends javax.swing.JFrame {
                     Main.projects.add(p);
                     populateProjectList();
 
-                    //ToDo
                     // Save to file
+                    p.saveToFile();
                 } catch (IOException ex) {
                     Logger.getLogger(HomeFrame.class.getName()).log(Level.SEVERE, null, ex);
                 }

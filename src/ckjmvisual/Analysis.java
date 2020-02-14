@@ -5,12 +5,14 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Analysis {
+public class Analysis implements Serializable{
     private Date date;
     private Project project;
     private ArrayList<JavaFile> javaFiles;
@@ -54,6 +56,7 @@ public class Analysis {
                 
                 javaFiles.add(javaFile);
             }
+            Collections.sort(javaFiles);
             project.deleteFolder(tempFolder);
         } catch (IOException ex) {
             Logger.getLogger(Project.class.getName()).log(Level.SEVERE, null, ex);

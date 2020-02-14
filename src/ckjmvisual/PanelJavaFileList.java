@@ -5,6 +5,7 @@
  */
 package ckjmvisual;
 
+import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
@@ -176,6 +177,14 @@ public class PanelJavaFileList extends javax.swing.JPanel implements ListCellRen
         this.jLabelNPM.setText(value.getNPM()+"");
         this.jLabelRFC.setText(value.getRFC()+"");
         this.jLabelWMC.setText(value.getWMC()+"");
+        
+        if(value.getCBO()>Main.CBO || value.getCa()>Main.Ca || value.getDIT()>Main.DIT || value.getLCOM()>Main.LCOM
+                || value.getNOC()>Main.NOC || value.getNPM()>Main.NPM || value.getRFC()>Main.RFC
+                || value.getWMC()>Main.WMC){
+            this.jPanel1.setBackground(Color.RED);
+        }
+        else
+            this.jPanel1.setBackground(Color.GREEN);
         
         return this;
     }
