@@ -56,11 +56,13 @@ public class Analysis implements Serializable{
                 
                 javaFiles.add(javaFile);
             }
+            
             Collections.sort(javaFiles);
             project.deleteFolder(tempFolder);
         } catch (IOException ex) {
             Logger.getLogger(Project.class.getName()).log(Level.SEVERE, null, ex);
         }
+       
     }
     
     //Calulate Average for all the rates of the files

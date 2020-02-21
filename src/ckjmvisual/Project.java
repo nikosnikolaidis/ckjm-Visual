@@ -9,6 +9,8 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class Project implements Serializable {
 
@@ -28,7 +30,13 @@ public class Project implements Serializable {
     public void analyze() throws IOException {
         Analysis anal = new Analysis(this);
         anal.startAnalyzing();
-        allAnalysis.add(anal);
+        
+        if (anal.getAnalysisJavaFiles().size() > 0){
+            allAnalysis.add(anal);
+        } else {
+            JOptionPane.showMessageDialog(new JFrame(), "Can not analyse the new Version");
+        }
+        
     }
 
     /**

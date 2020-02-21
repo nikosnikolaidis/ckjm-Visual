@@ -214,11 +214,16 @@ public class HomeFrame extends javax.swing.JFrame {
                 try {
                     Project p = new Project(jTextFieldProjectName.getText(), jTextFieldProjectDirectory.getText());
                     p.analyze();
-                    Main.projects.add(p);
-                    populateProjectList();
+                    if(p.allAnalysis.size() > 0) {
+                        Main.projects.add(p);
+                        populateProjectList();
 
-                    // Save to file
-                    p.saveToFile();
+                        // Save to file
+                        p.saveToFile(); 
+                    } else {
+                        JOptionPane.showMessageDialog(new JFrame(), "Project can not be analysed");
+                    }
+                    
                 } catch (IOException ex) {
                     Logger.getLogger(HomeFrame.class.getName()).log(Level.SEVERE, null, ex);
                 }
