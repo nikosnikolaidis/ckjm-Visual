@@ -1,7 +1,8 @@
 package ckjmvisual;
 
-
+import java.awt.List;
 import java.util.ArrayList;
+import java.util.Collections;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.ChartPanel;
@@ -15,44 +16,45 @@ import org.jfree.data.category.DefaultCategoryDataset;
  *
  * @author Sakis
  */
-public class LineChart_AWT extends ApplicationFrame{
-    
+public class LineChart_AWT extends ApplicationFrame {
+
     Project project;
-    
-    public LineChart_AWT(Project p, String applicationTitle , String chartTitle ) {
-      super(applicationTitle);
-      this.project = p;
-      JFreeChart lineChart = ChartFactory.createLineChart(
-         chartTitle,
-         "Metric","Value",
-         createDataset(),
-         PlotOrientation.VERTICAL,
-         true,true,false);
-         
-      ChartPanel chartPanel = new ChartPanel( lineChart );
-      chartPanel.setPreferredSize( new java.awt.Dimension( 900 , 700 ) );
-      setContentPane( chartPanel );
-   }
-   
-   private DefaultCategoryDataset createDataset(){
+
+    public LineChart_AWT(Project p, String applicationTitle, String chartTitle) {
+        super(applicationTitle);
+        this.project = p;
+        JFreeChart lineChart = ChartFactory.createLineChart(
+                chartTitle,
+                "Metric", "Value",
+                createDataset(),
+                PlotOrientation.VERTICAL,
+                true, true, false);
+
+        ChartPanel chartPanel = new ChartPanel( lineChart );
+        chartPanel.setPreferredSize( new java.awt.Dimension( 900 , 700 ) );
+        setContentPane( chartPanel );
+    }
+
+    private DefaultCategoryDataset createDataset() {
         ArrayList<Analysis> allAnal = project.getAllAnalysis();
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        
-        
-        
-        for(Analysis anal: allAnal){
+
+        Collections.reverse(allAnal);
+        int version = 1;
+        for (Analysis anal : allAnal) {
             ArrayList<JavaFile> jFile = anal.getJavaFiles();
             int num;
-            for(int i = 0; i<jFile.size(); i++){
+            for (int i = 0; i < jFile.size(); i++) {
 
                 num = jFile.get(i).getRFC();
-                
-                dataset.setValue(num, "Metric " + (i+1), "Values " + (i+1)); 
-                
+
+                dataset.setValue(num, "Metric ", "Version " + version);
+
             }
-        }        
+            version++;
+        }
         System.out.println(dataset.getValue(0, 0));
 
         return dataset;
-   }
+    }
 }

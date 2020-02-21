@@ -14,7 +14,7 @@ public class Project implements Serializable {
 
     private String name;
     private String directory;
-    private ArrayList<Analysis> allAnalysis;
+    public ArrayList<Analysis> allAnalysis; //TODO change to private
 
     public Project(String name, String directory) throws IOException {
         this.name = name;
@@ -26,7 +26,6 @@ public class Project implements Serializable {
      * Run ckjm and get results from cmd
      */
     public void analyze() throws IOException {
-
         Analysis anal = new Analysis(this);
         anal.startAnalyzing();
         allAnalysis.add(anal);
