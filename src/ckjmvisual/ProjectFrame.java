@@ -29,9 +29,9 @@ public class ProjectFrame extends javax.swing.JFrame {
 
         //create chart
         LineChart_AWT chart = new LineChart_AWT(project, "Test chart", "Values vs Metrics");
-        chart.pack();
-        chart.setVisible(true);
-        //jPanelChart.add(chart.chartPanel);
+
+        chart.pack( );
+        jPanelChart.add(chart.chartPanel);
     }
 
     //Populate List with JavaFiles
