@@ -19,6 +19,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 public class LineChart_AWT extends ApplicationFrame {
 
     Project project;
+    ChartPanel chartPanel;
 
     public LineChart_AWT(Project p, String applicationTitle, String chartTitle) {
         super(applicationTitle);
@@ -30,8 +31,8 @@ public class LineChart_AWT extends ApplicationFrame {
                 PlotOrientation.VERTICAL,
                 true, true, false);
 
-        ChartPanel chartPanel = new ChartPanel( lineChart );
-        chartPanel.setPreferredSize( new java.awt.Dimension( 900 , 700 ) );
+        chartPanel = new ChartPanel( lineChart );
+        chartPanel.setPreferredSize( new java.awt.Dimension( 400, 600) );
         setContentPane( chartPanel );
     }
 
@@ -58,3 +59,5 @@ public class LineChart_AWT extends ApplicationFrame {
         return dataset;
     }
 }
+//2.0075
+//2.01333333
