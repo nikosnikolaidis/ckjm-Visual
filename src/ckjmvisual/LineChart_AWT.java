@@ -43,15 +43,9 @@ public class LineChart_AWT extends ApplicationFrame {
         Collections.reverse(allAnal);
         int version = 1;
         for (Analysis anal : allAnal) {
-            ArrayList<JavaFile> jFile = anal.getJavaFiles();
-            int num;
-            for (int i = 0; i < jFile.size(); i++) {
-
-                num = jFile.get(i).getRFC();
-
-                dataset.setValue(num, "Metric ", "Version " + version);
-
-            }
+            double num= anal.caluclateRateAverage();
+            dataset.setValue(num, "Metric ", "Version " + version);
+            
             version++;
         }
         System.out.println(dataset.getValue(0, 0));
@@ -59,5 +53,3 @@ public class LineChart_AWT extends ApplicationFrame {
         return dataset;
     }
 }
-//2.0075
-//2.01333333

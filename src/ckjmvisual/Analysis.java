@@ -62,7 +62,15 @@ public class Analysis implements Serializable{
             Logger.getLogger(Project.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
+    //Calulate Average for all the rates of the files
+    public double caluclateRateAverage(){
+        double total=0;
+        for(JavaFile jf: javaFiles){
+            total +=jf.getTotalRate();
+        }
+        return total/javaFiles.size();
+    }
     
     //Getters
     public Project getProject() {

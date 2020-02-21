@@ -15,6 +15,7 @@ public class JavaFile implements Serializable, Comparable<JavaFile>{
     private int LCOM;
     private int Ca;
     private int NPM;
+    private double totalRate;
 
     public JavaFile(String fileName, int WMC, int DIT, int NOC, int CBO, int RFC, int LCOM, int Ca, int NPM) {
         this.fileName = fileName;
@@ -26,6 +27,9 @@ public class JavaFile implements Serializable, Comparable<JavaFile>{
         this.LCOM = LCOM;
         this.Ca = Ca;
         this.NPM = NPM;
+        this.totalRate= getRatio(WMC, Main.WMC)+ getRatio(DIT, Main.DIT)+ getRatio(NOC, Main.NOC)+
+                getRatio(CBO, Main.CBO)+ getRatio(RFC, Main.RFC)+ getRatio(LCOM, Main.LCOM)+
+                getRatio(Ca, Main.Ca)+ getRatio(NPM, Main.NPM);
     }
     
     /**
@@ -34,18 +38,9 @@ public class JavaFile implements Serializable, Comparable<JavaFile>{
      */
     @Override
     public int compareTo(JavaFile o) {
-        double thisTotal= getRatio(WMC, Main.WMC)+ getRatio(DIT, Main.DIT)+ getRatio(NOC, Main.NOC)+
-                getRatio(CBO, Main.CBO)+ getRatio(RFC, Main.RFC)+ getRatio(LCOM, Main.LCOM)+
-                getRatio(Ca, Main.Ca)+ getRatio(NPM, Main.NPM);
-        double otherTotal= getRatio(o.getWMC(), Main.WMC)+ getRatio(o.getDIT(), Main.DIT)+ getRatio(o.getNOC(), Main.NOC)+
-                getRatio(o.getCBO(), Main.CBO)+ getRatio(o.getRFC(), Main.RFC)+ getRatio(o.getLCOM(), Main.LCOM)+
-                getRatio(o.getCa(), Main.Ca)+ getRatio(o.getNPM(), Main.NPM);
-        
-        System.out.println(getFileName()+"  "+ thisTotal);
-        System.out.println(o.getFileName()+"  "+ otherTotal);
-        if(thisTotal > otherTotal)
+        if(this.totalRate > o.totalRate)
             return -1;
-        else if (thisTotal < otherTotal)
+        else if (this.totalRate < o.totalRate)
             return 1;
         else
             return 0;
@@ -88,5 +83,7 @@ public class JavaFile implements Serializable, Comparable<JavaFile>{
     public int getNPM() {
         return NPM;
     }
-
+    public double getTotalRate(){
+        return totalRate;
+    }
 }
