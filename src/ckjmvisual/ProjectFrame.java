@@ -6,10 +6,11 @@ import javafx.scene.layout.Pane;
 import javax.swing.DefaultListModel;
 
 
+
 public class ProjectFrame extends javax.swing.JFrame {
 
     Project project;
-    Chart chart;
+    LineChart_AWT chart;
     
     /**
      * Creates new form ProjectFrame
@@ -241,7 +242,14 @@ public class ProjectFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Chart chart = new Chart(project);
+        LineChart_AWT chart = new LineChart_AWT(
+          project,
+         "Test chart" ,
+         "Values vs Metrics");
+
+        chart.pack( );
+
+        chart.setVisible( true );
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
