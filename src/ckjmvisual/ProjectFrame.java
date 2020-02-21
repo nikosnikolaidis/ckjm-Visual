@@ -28,7 +28,7 @@ public class ProjectFrame extends javax.swing.JFrame {
         getAverageMetrics();
 
         //create chart
-        LineChart_AWT chart = new LineChart_AWT(project, "Test chart", "Values vs Metrics");
+        LineChart_AWT chart = new LineChart_AWT(project, "Rate Chart", "Metrics Rate per Version");
 
         chart.pack( );
         jPanelChart.add(chart.chartPanel);
