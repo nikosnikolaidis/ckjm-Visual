@@ -1,4 +1,3 @@
-
 package ckjmvisual;
 
 import java.io.IOException;
@@ -8,50 +7,75 @@ import java.util.logging.Logger;
 import javafx.scene.layout.Pane;
 import javax.swing.DefaultListModel;
 
-
-
 public class ProjectFrame extends javax.swing.JFrame {
 
     Project project;
     LineChart_AWT chart;
-    
+
     /**
      * Creates new form ProjectFrame
      */
     public ProjectFrame() {
         initComponents();
     }
-    
-    public ProjectFrame(Project p){
+
+    public ProjectFrame(Project p) {
         this.project = p;
-        
+
         initComponents();
         populateIssueList();
         this.jLabelProjectName.setText(project.getName());
-        //getAverageMetrics();
-        
+        getAverageMetrics();
+
         //create chart
         LineChart_AWT chart = new LineChart_AWT(project, "Test chart", "Values vs Metrics");
-        chart.pack( );
-        chart.setVisible( true );
+        chart.pack();
+        chart.setVisible(true);
         //jPanelChart.add(chart.chartPanel);
     }
-     
+
     //Populate List with JavaFiles
     private void populateIssueList() {
-        if(!Main.projects.isEmpty()){
-            DefaultListModel<JavaFile> defaultListModel= new DefaultListModel<>();
+        if (!Main.projects.isEmpty()) {
+            DefaultListModel<JavaFile> defaultListModel = new DefaultListModel<>();
             //Collections.sort(project.getprojectReport().getIssuesList());
-            for(JavaFile jf: project.getAllAnalysis().get(0).getJavaFiles()){
+            for (JavaFile jf : project.getAllAnalysis().get(0).getJavaFiles()) {
                 defaultListModel.addElement(jf);
             }
             jListJavaFile.setModel(defaultListModel);
             jListJavaFile.setCellRenderer(new PanelJavaFileList());
         }
     }
+
     // Calculate average metrics and populate jLabels
     private void getAverageMetrics() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        double avCBO = 0;
+        double avCa = 0;
+        double avWMC= 0;
+        double avDIT= 0;
+        double avNOC= 0;
+        double avRFC= 0;
+        double avLCOM= 0;
+        double avNPM= 0;
+        for(JavaFile jf: project.getAllAnalysis().get(0).getJavaFiles()){
+            avCBO += jf.getCBO();
+            avCa += jf.getCa();
+            avDIT += jf.getDIT();
+            avLCOM += jf.getLCOM();
+            avNOC += jf.getNOC();
+            avNPM += jf.getNPM();
+            avRFC += jf.getRFC();
+            avWMC += jf.getWMC();
+        }
+
+        jLabelCBO.setText (avCBO/project.getAllAnalysis().get(0).getJavaFiles().size()+"");
+        jLabelCa.setText (avCa/project.getAllAnalysis().get(0).getJavaFiles().size()+"");
+        jLabelDIT.setText (avDIT/project.getAllAnalysis().get(0).getJavaFiles().size()+"");
+        jLabelLCOM.setText (avLCOM/project.getAllAnalysis().get(0).getJavaFiles().size()+"");
+        jLabelNOC.setText (avNOC/project.getAllAnalysis().get(0).getJavaFiles().size()+"");
+        jLabelNPM.setText (avNPM/project.getAllAnalysis().get(0).getJavaFiles().size()+"");
+        jLabelRFC.setText (avRFC/project.getAllAnalysis().get(0).getJavaFiles().size()+"");
+        jLabelWMC.setText (avWMC/project.getAllAnalysis().get(0).getJavaFiles().size()+"");
     }
 
     /**

@@ -41,6 +41,8 @@ public class JavaFile implements Serializable, Comparable<JavaFile>{
                 getRatio(o.getCBO(), Main.CBO)+ getRatio(o.getRFC(), Main.RFC)+ getRatio(o.getLCOM(), Main.LCOM)+
                 getRatio(o.getCa(), Main.Ca)+ getRatio(o.getNPM(), Main.NPM);
         
+        System.out.println(getFileName()+"  "+ thisTotal);
+        System.out.println(o.getFileName()+"  "+ otherTotal);
         if(thisTotal > otherTotal)
             return -1;
         else if (thisTotal < otherTotal)
@@ -55,7 +57,7 @@ public class JavaFile implements Serializable, Comparable<JavaFile>{
      * @param threshold the threshold for the metric
      */
     private double getRatio(int metric, int threshold){
-        return metric/threshold;
+        return (metric*1.0)/threshold;
     }
     
     // Getters //
