@@ -26,7 +26,7 @@ public class LineChart_AWT extends ApplicationFrame {
         this.project = p;
         JFreeChart lineChart = ChartFactory.createLineChart(
                 chartTitle,
-                "Metric", "Value",
+                "Rate", "Value",
                 createDataset(),
                 PlotOrientation.VERTICAL,
                 true, true, false);
@@ -49,15 +49,12 @@ public class LineChart_AWT extends ApplicationFrame {
 
                 num = jFile.get(i).getRFC();
 
-                dataset.setValue(num, "Metric ", "Version " + version);
+                dataset.setValue(num, "Rate", "Version " + version);
 
             }
             version++;
         }
-        System.out.println(dataset.getValue(0, 0));
 
         return dataset;
     }
 }
-//2.0075
-//2.01333333

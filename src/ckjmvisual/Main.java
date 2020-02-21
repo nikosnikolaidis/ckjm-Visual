@@ -37,7 +37,7 @@ public class Main {
 
             projects = (ArrayList<Project>) oi.readObject();
         } catch (IOException | ClassNotFoundException ex) {
-            System.out.println("exa2pro.Exa2Pro.getProjetsFromFile()");
+            System.out.println("ckjmvisual.Main.getProjetsFromFile()");
         }
     }
 }
