@@ -248,7 +248,7 @@ public class HomeFrame extends javax.swing.JFrame {
                     } else {
                         JOptionPane.showMessageDialog(new JFrame(), "Project can not be analysed");
                     }
-
+                    jTextFieldProjectName.setText("");
                 } catch (IOException ex) {
                     Logger.getLogger(HomeFrame.class.getName()).log(Level.SEVERE, null, ex);
                 }
