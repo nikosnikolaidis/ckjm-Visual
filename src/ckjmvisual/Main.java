@@ -6,14 +6,14 @@ import java.io.*;
 
 public class Main {
     
-    public static final int WMC= 10;
-    public static final int DIT= 10;
+    public static final int WMC= 100;
+    public static final int DIT= 5;
     public static final int NOC= 10;
-    public static final int CBO= 10;
+    public static final int CBO= 5;
     public static final int RFC= 100;
     public static final int LCOM= 20;
-    public static final int Ca= 10;
-    public static final int NPM= 3;
+    public static final int Ca= 20;
+    public static final int NPM= 40;
     public static HomeFrame homeFrame;
     public static ArrayList<Project> projects = new ArrayList<>();
 
