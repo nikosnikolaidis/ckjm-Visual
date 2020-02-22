@@ -201,7 +201,14 @@ public class HomeFrame extends javax.swing.JFrame {
                 defaultListModel.addElement(p.getName());
             }
             jListProjects.setModel(defaultListModel);
+        } else {
+            DefaultListModel<String> defaultListModel = new DefaultListModel<>();
+            for (Project p : Main.projects) {
+                defaultListModel.addElement(p.getName());
+            }
+            jListProjects.setModel(defaultListModel);
         }
+        
     }
 
     private void jListProjectsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListProjectsMousePressed

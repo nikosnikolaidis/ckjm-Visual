@@ -14,7 +14,7 @@ public class Main {
     public static final int LCOM= 20;
     public static final int Ca= 10;
     public static final int NPM= 3;
-    
+    public static HomeFrame homeFrame;
     public static ArrayList<Project> projects = new ArrayList<>();
 
     /**
@@ -22,7 +22,7 @@ public class Main {
      */
     public static void main(String[] args){
         getProjetsFromFile();
-        HomeFrame homeFrame=new HomeFrame();
+        homeFrame=new HomeFrame();
         homeFrame.setVisible(true);
      
         
