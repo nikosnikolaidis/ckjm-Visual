@@ -40,7 +40,6 @@ public class LineChart_AWT extends ApplicationFrame {
         ArrayList<Analysis> allAnal = project.getAllAnalysis();
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
-        Collections.reverse(allAnal);
         int version = 1;
         for (Analysis anal : allAnal) {
             double num= anal.caluclateRateAverage();
